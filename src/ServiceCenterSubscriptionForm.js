@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
-import { Search, AlertCircle } from 'lucide-react';
+import {AlertCircle } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import instance from './api';
 
@@ -116,40 +116,6 @@ const ModalContent = styled.div`
   text-align: center;
 `;
 
-const SearchableSelect = styled.div`
-  position: relative;
-`;
-
-const SearchInput = styled.input`
-  width: 100%;
-  padding: 8px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-`;
-
-const DropdownList = styled.ul`
-  position: absolute;
-  width: 100%;
-  max-height: 200px;
-  overflow-y: auto;
-  list-style-type: none;
-  padding: 0;
-  margin: 0;
-  border: 1px solid #ccc;
-  border-top: none;
-  border-radius: 0 0 4px 4px;
-  background-color: white;
-  z-index: 1;
-`;
-
-const DropdownItem = styled.li`
-  padding: 8px;
-  cursor: pointer;
-  &:hover {
-    background-color: #f0f0f0;
-  }
-`;
-
 const MultiSelect = styled.select`
   width: 100%;
   padding: 8px;
@@ -183,12 +149,8 @@ const ServiceCenterSubscriptionForm = () => {
 
 
   const [states, setStates] = useState([]);
-  const [filteredStates, setFilteredStates] = useState([]);
   const [districts, setDistricts] = useState([]);
-  const [filteredDistricts, setFilteredDistricts] = useState([]);
   const [zones, setZones] = useState([]);
-  const [showStateDropdown, setShowStateDropdown] = useState(false);
-  const [showDistrictDropdown, setShowDistrictDropdown] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const [modalMessage, setModalMessage] = useState('');
   const navigate = useNavigate();
@@ -199,7 +161,6 @@ const ServiceCenterSubscriptionForm = () => {
         const response = await instance.get("https://dev264506.service-now.com/api/now/table/x_1433219_hortiur_state?sysparm_fields=state");
         const stateList = response.data.result.map(item => item.state);
         setStates(stateList);
-        setFilteredStates(stateList);
       } catch (error) {
         console.error("Error fetching states:", error);
       }
@@ -219,7 +180,6 @@ const ServiceCenterSubscriptionForm = () => {
       const districtList = response.data.result.map(item => item.district);
       setDistricts(districtList);
       window.console.log("the district list is "+districtList);
-      setFilteredDistricts(districtList);
     } catch (error) {
       console.error("Error fetching districts:", error);
     }
@@ -277,7 +237,6 @@ const ServiceCenterSubscriptionForm = () => {
       office_space_available: data.officeSpaceAvailable,
       zip_code: data.zipCode,
       education_level: data.educationLevel,
-      gov_id_type: data.govIdType,
       email: data.email
     };
   };
@@ -309,16 +268,6 @@ const ServiceCenterSubscriptionForm = () => {
     }
   };
 
-  const handleSelectState = (state) => {
-    setFormData(prevState => ({ ...prevState, state, district: '' }));
-    fetchDistricts(state);
-    setShowStateDropdown(false);
-  };
-
-  const handleSelectDistrict = (district) => {
-    setFormData(prevState => ({ ...prevState, district }));
-    setShowDistrictDropdown(false);
-  };
 
 
   return (
