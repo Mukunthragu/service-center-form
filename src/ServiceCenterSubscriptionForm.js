@@ -300,8 +300,8 @@ const ServiceCenterSubscriptionForm = () => {
               <Label htmlFor="govIdType">Gov ID Type</Label>
               <Select id="govIdType" name="govIdType" value={formData.govIdType} onChange={handleChange}>
                 <option value="">-- None --</option>
-                <option value="">Adhaar</option>
-                <option value="">Passport</option>
+                <option value="Adhaar">Adhaar</option>
+                <option value="Passport">Passport</option>
                 {/* Add other ID types as needed */}
               </Select>
             </FormField>
