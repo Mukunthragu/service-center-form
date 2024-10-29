@@ -168,6 +168,7 @@ const ServiceCenterSubscriptionForm = () => {
             credentials: 'include' // Important for using existing session-based authentication
           }
         );
+        console.log('the response of state is '+response);
         const stateList = response.data.result.map(item => item.state);
         setStates(stateList);
       } catch (error) {
