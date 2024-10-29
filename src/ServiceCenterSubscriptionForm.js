@@ -158,7 +158,16 @@ const ServiceCenterSubscriptionForm = () => {
   useEffect(() => {
     const fetchStates = async () => {
       try {
-        const response = await instance.get("https://dev287265.service-now.com/api/now/table/x_1433219_hortiur_state?sysparm_fields=state");
+        const response = await fetch(
+          "https://dev287265.service-now.com/api/now/table/x_1433219_hortiur_state?sysparm_fields=state",
+          {
+            method: 'GET',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            credentials: 'include' // Important for using existing session-based authentication
+          }
+        );
         const stateList = response.data.result.map(item => item.state);
         setStates(stateList);
       } catch (error) {
