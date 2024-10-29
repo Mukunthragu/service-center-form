@@ -158,7 +158,7 @@ const ServiceCenterSubscriptionForm = () => {
   useEffect(() => {
     const fetchStates = async () => {
       try {
-        const response = await instance.get("https://dev264506.service-now.com/api/now/table/x_1433219_hortiur_state?sysparm_fields=state");
+        const response = await instance.get("https://dev287265.service-now.com/api/now/table/x_1433219_hortiur_state?sysparm_fields=state");
         const stateList = response.data.result.map(item => item.state);
         setStates(stateList);
       } catch (error) {
@@ -171,7 +171,7 @@ const ServiceCenterSubscriptionForm = () => {
   const fetchDistricts = async (state) => {
     window.console.log("check the state "+state);
     try {
-      const response = await instance.get("https://dev264506.service-now.com/api/now/table/x_1433219_hortiur_district", {
+      const response = await instance.get("https://dev287265.service-now.com/api/now/table/x_1433219_hortiur_district", {
         params: {
           sysparm_fields: 'district',
           sysparm_query: "stateLIKE"+state
@@ -187,7 +187,7 @@ const ServiceCenterSubscriptionForm = () => {
 
   const fetchZones = async (district) => {
     try {
-      const response = await instance.get("https://dev264506.service-now.com/api/now/table/x_1433219_hortiur_zones", {
+      const response = await instance.get("https://dev287265.service-now.com/api/now/table/x_1433219_hortiur_zones", {
         params: {
           sysparm_fields: 'zones',
           sysparm_query: 'districtLIKE'+district
@@ -248,7 +248,7 @@ const ServiceCenterSubscriptionForm = () => {
 
     try {
       const response = await instance.post(
-        "https://dev264506.service-now.com/api/now/table/x_1433219_hortiur_service_centers?sysparm_input_display_value=True",
+        "https://dev287265.service-now.com/api/now/table/x_1433219_hortiur_service_centers?sysparm_input_display_value=True",
         formattedData
       );
       console.log('Form submitted successfully:', response.data);
